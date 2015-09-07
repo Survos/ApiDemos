@@ -44,7 +44,7 @@ function getJobs($projectCode, $page, $paginate, $accessToken) {
     return json_decode($response, true);
 }
 
-$accessToken = obtainAccessToken('otac', 'tt');
+$accessToken = obtainAccessToken(username, password);
 printf("%s\n", $accessToken);
 $jobs = getJobs('demo', 1, 10, $accessToken);
 print_r($jobs);
