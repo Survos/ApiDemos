@@ -1,12 +1,12 @@
 Package: survos
 Title: Sample programs demonstrating calls to the API
-Version: Alpha
+Version: 0.0.1
 Date: 2015-09-08
 Authors@R: as.person(c("Phill Clarke <phill@starkingdom.co.uk> [aut, cre]"))
 Description: An R package for demonstrating the Survos API
 Depends:
     R (>= 3.2.2)
-License: 
+License: Undecided
 URL: https://github.com/survos/ApiDemos
 BugReports: http://www.github.com/survos/ApiDemos/issues
 Maintainer: Phill Clarke <phill@starkingdom.co.uk>
