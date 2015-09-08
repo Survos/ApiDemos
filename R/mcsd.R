@@ -1,16 +1,16 @@
-install.packages('Hmisc')
-install.packages("jsonlite", repos="http://cran.r-project.org")
-install.packages('curl')
-install.packages('RCurl')
-install.packages("httr")
+#install.packages('Hmisc')
+#install.packages("jsonlite", repos="http://cran.r-project.org")
+#install.packages('curl')
+#install.packages('RCurl')
+#install.packages("httr")
  
 # json examples
 #   http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/
 
 #load
-library(jsonlite)
-library(RCurl)
-library(httr)
+#library(jsonlite)
+#library(RCurl)
+#library(httr)
 
 REST_ENDPOINT <- "https://nyu-demo.survos.com/app_dev.php/api1.0/"
 url <- paste(REST_ENDPOINT, "security/login", sep="")
