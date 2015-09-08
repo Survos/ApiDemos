@@ -1,9 +1,20 @@
 Package: survos
-Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Sample programs demonstrating calls to the API
+Version: Alpha
 Date: 2015-09-08
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: as.person(c("Phill Clarke <phill@starkingdom.co.uk> [aut, cre]"))
+Description: An R package for demonstrating the Survos API
+Depends:
+    R (>= 3.2.2)
+License: 
+URL: https://github.com/survos/ApiDemos
+BugReports: http://www.github.com/survos/ApiDemos/issues
+Maintainer: Phill Clarke <phill@starkingdom.co.uk>
+LazyData: true
+Imports:
+    RCurl (>= 1.95-4.7),
+    jsonlite (>= 0.9.17),
+    curl (>= 0.9.3)
+Suggests:
+    knitr
+VignetteBuilder: knitr
