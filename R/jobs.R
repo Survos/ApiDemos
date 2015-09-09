@@ -1,6 +1,6 @@
 jobs <- function(projectCode){
   
-  listJobsOps <- paste("projectCode=",projectCode,sep="")
+  listJobsOps <- paste("project_code=",projectCode,sep="")
 
   jobsURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/jobs?",listJobsOps,sep="")
 

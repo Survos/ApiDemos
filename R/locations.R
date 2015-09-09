@@ -1,6 +1,6 @@
-locations <- function(projectCode){
+locations <- function(projectCode, memberId, startDate = "2015-01-01"){
   
-  listLocationsOps <- paste("projectCode=",projectCode,sep="")
+  listLocationsOps <- paste("project_code=",projectCode, "member_id=", memberId, "start_date=", startDate, sep="")
   
   locationsURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/locations?",listLocationsOps,sep="")
   
@@ -8,8 +8,6 @@ locations <- function(projectCode){
   
   locationsData = fromJSON(content(getLocationsData,type="text"))
   
-  as.data.frame(locationsData$`_embedded`[1])
+  as.data.frame(locationsData$items)
   
 }
-
-
