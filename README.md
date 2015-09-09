@@ -23,7 +23,8 @@ Once installed, the following R script logs in and returns data from the "jobs" 
 
 ```R
 if(!require("devtools")){
-  # If devtools fails with zero exit status due to unable to install xml2 library, check libxml2-dev is installed on local machine
+  # If devtools fails with zero exit status due to unable to install xml2 library, 
+  # check libxml2-dev is installed on local machine
   install.packages("devtools")
   library("devtools")
   devtools::install_github("survos/platform-api-r")
@@ -43,7 +44,10 @@ loginSurvos(username="YourUsername", password="YourPassword")
 
 jobsOut <- jobs(projectCode="nyu_demo")
 
+# A list of all job ids for project code "nyu_demo" now in this variable
+jobsOut$id
+
 ```
-All the jobs data can now be accessed through the variable "jobsOut".
+All the jobs data can now be accessed through the variable "jobsOut". Job ids are specifically found in jobsOut$id
 
 
