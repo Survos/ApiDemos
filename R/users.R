@@ -1,31 +1,29 @@
 users <- function(){
   
+  # This first part is really only required so we know the total number of pages
+  
   usersURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/users?",sep="")
   
   getUsersData <- GET(url=usersURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   
   usersData = fromJSON(content(getUsersData,type="text"))
   
-  for (i in 1:usersData$pages) {
+  # Everything below here deals with returning data across all pages. 
+  # TODO: This could probably be made a generic function for the package, used across all other functions
+  
+  for (i in 1:usersData$pages) { 
     
     usersURL[i] <- as.list(paste("https://nyu-demo.survos.com/app_dev.php/api1.0/users?page=",i,sep=""))
-
+    
   }
   
   getUsersData <- lapply(usersURL, function(x) GET(url=x, add_headers(Authorization=paste("Bearer ", accessToken, sep=""))))
   
-  usersData = lapply(getUsersData, function(x) fromJSON(content(x,type="text")))
+  usersData = lapply(getUsersData, function(x) fromJSON(content(x,type="text", flatten = TRUE)))
   
-  newUsersData <- lapply(usersData, '[[', 'items' )
+  usersData <- lapply(usersData, '[[', 'items' )
   
-  #newnewUsersData <- lapply(newUsersData, '[[', 'id' )
-  
-  #newnewnewUsersData <- data.frame(unlist(newnewUsersData))
-  
-  #newnewnewusersData <- dplyr::bind_rows(lapply(usersData, function(x) unlist(x)))
-    
-  #as.data.frame(usersData$items)
-  #as.data.frame(usersData)
+  dplyr::bind_rows(usersData[1:length(usersData)])
   
 }
   
