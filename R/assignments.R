@@ -2,7 +2,7 @@ assignments <- function(jobId){
   
   listAssignmentsOps <- paste("job_id=",jobId,sep="")
   
-  assignmentsURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/assignments?", listAssignmentsOps, sep="")
+  assignmentsURL <- paste(endPoint,"assignments?", listAssignmentsOps, sep="")
   
   getAssignmentsData <- GET(url=assignmentsURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   

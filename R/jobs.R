@@ -2,7 +2,7 @@ jobs <- function(projectCode){
   
   listJobsOps <- paste("project_code=",projectCode,sep="")
 
-  jobsURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/jobs?",listJobsOps,sep="")
+  jobsURL <- paste(endPoint,"jobs?",listJobsOps,sep="")
 
   getJobsData <- GET(url=jobsURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   

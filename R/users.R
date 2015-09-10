@@ -2,7 +2,7 @@ users <- function(){
   
   # This first part is really only required so we know the total number of pages
   
-  usersURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/users?",sep="")
+  usersURL <- paste(endPoint,"users?",sep="")
   
   getUsersData <- GET(url=usersURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   
@@ -13,7 +13,7 @@ users <- function(){
   
   for (i in 1:usersData$pages) { 
     
-    usersURL[i] <- as.list(paste("https://nyu-demo.survos.com/app_dev.php/api1.0/users?page=",i,sep=""))
+    usersURL[i] <- as.list(paste(endPoint,"/users?page=",i,sep=""))
     
   }
   
