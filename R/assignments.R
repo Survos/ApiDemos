@@ -1,13 +1,13 @@
 assignments <- function(jobId){
   
-  listAssignmentsOps <- paste("job_id=",jobId,sep="")
+  # Set function options
   
-  assignmentsURL <- paste(endPoint,"assignments?", listAssignmentsOps, sep="")
+  funcOps <- paste("job_id=", jobId, sep="")
   
-  getAssignmentsData <- GET(url=assignmentsURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
+  # Define the API endpoint extension to match this function and any other endpoint params
   
-  assignmentsData = fromJSON(content(getAssignmentsData,type="text"))
+ endPointParams(endPointExt="assignments?", endPointPages="assignments?page=")
   
-  as.data.frame(assignmentsData$items)
-  
+  #dplyr::bind_rows(dataReturn[1:length(dataReturn)])
+
 }

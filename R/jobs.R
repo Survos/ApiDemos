@@ -1,13 +1,13 @@
 jobs <- function(projectCode){
   
-  listJobsOps <- paste("project_code=",projectCode,sep="")
-
-  jobsURL <- paste(endPoint,"jobs?",listJobsOps,sep="")
-
-  getJobsData <- GET(url=jobsURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
+  # Set function options
   
-  jobsData = fromJSON(content(getJobsData,type="text"))
+  funcOps <- paste("project_code=", projectCode, sep="")
+
+  # Define the API endpoint extension to match this function and any other endpoint params
   
-  as.data.frame(jobsData$items)
-                 
+  dataReturn <- endPointParams(endPointExt="jobs?", endPointPages="jobs?page=")
+  
+  dplyr::bind_rows(dataReturn[1:length(dataReturn)])
+
 }

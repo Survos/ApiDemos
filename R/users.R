@@ -1,30 +1,15 @@
 users <- function(){
   
-  # This first part is really only required so we know the total number of pages
+  # Set function option
+  # None to be set for this function
   
-  usersURL <- paste(endPoint,"users?",sep="")
+  # Define the API endpoint extension to match this function and any other endpoint params
   
-  getUsersData <- GET(url=usersURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
-  
-  usersData = fromJSON(content(getUsersData,type="text"))
-  
-  # Everything below here deals with returning data across all pages. 
-  # TODO: This could probably be made a generic function for the package, used across all other functions
-  
-  for (i in 1:usersData$pages) { 
-    
-    usersURL[i] <- as.list(paste(endPoint,"/users?page=",i,sep=""))
-    
-  }
-  
-  getUsersData <- lapply(usersURL, function(x) GET(url=x, add_headers(Authorization=paste("Bearer ", accessToken, sep=""))))
-  
-  usersData = lapply(getUsersData, function(x) fromJSON(content(x,type="text", flatten = TRUE)))
-  
-  usersData <- lapply(usersData, '[[', 'items' )
-  
-  dplyr::bind_rows(usersData[1:length(usersData)])
-  
+  dataReturn <- endPointParams(endPointExt="users?", endPointPages="users?page=")
+
+  dplyr::bind_rows(dataReturn[1:length(dataReturn)])
+
 }
+
   
 
