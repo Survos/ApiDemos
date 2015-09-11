@@ -5,7 +5,7 @@ users <- function(){
   
   # Define the API endpoint extension to match this function and any other endpoint params
   
-  dataReturn <- endPointParams(endPointExt="users?", endPointPages="users?page=")
+  dataReturn <- endPointParams(endPointExt="users?", endPointPages="&page=")
 
   dplyr::bind_rows(dataReturn[1:length(dataReturn)])
 

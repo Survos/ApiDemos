@@ -1,13 +1,13 @@
-locations <- function(projectCode, memberId, startDate = "2015-01-01"){
+locations <- function(projectCode, memberId, maxPerPage = "25"){
   
-  listLocationsOps <- paste("project_code=",projectCode, "member_id=", memberId, "start_date=", startDate, sep="")
+  # Set function options
+
+  funcOps <<- paste("project_code=",projectCode, "&member_id=", memberId, "&max_per_page=", maxPerPage, sep="")
+
+  # Define the API endpoint extension to match this function and any other endpoint params
   
-  locationsURL <- paste("https://nyu-demo.survos.com/app_dev.php/api1.0/locations?",listLocationsOps,sep="")
+  endPointParams(endPointExt="locations?", endPointPages="&page=")
   
-  getLocationsData <- GET(url=locationsURL, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
-  
-  locationsData = fromJSON(content(getLocationsData,type="text"))
-  
-  as.data.frame(locationsData$items)
+  #dplyr::bind_rows(dataReturn[1:length(dataReturn)])
   
 }
