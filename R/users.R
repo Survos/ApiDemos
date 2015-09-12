@@ -1,7 +1,7 @@
-users <- function(){
+users <- function(maxPerPage = "25"){
   
   # Set function option
-  # None to be set for this function
+  funcOps <<- paste("&max_per_page=", maxPerPage, sep="")
   
   # Define the API endpoint extension to match this function and any other endpoint params
   

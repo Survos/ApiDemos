@@ -1,8 +1,8 @@
-assignments <- function(jobId){
+assignments <- function(jobId, maxPerPage = "25"){
   
   # Set function options
   
-  funcOps <<- paste("job_id=", jobId, sep="")
+  funcOps <<- paste("job_id=", jobId, "&max_per_page=", maxPerPage, sep="")
   
   # Define the API endpoint extension to match this function and any other endpoint params
   
