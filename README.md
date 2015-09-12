@@ -22,6 +22,11 @@ The DESCRIPTION file contains library requirements and installation will check f
 Once installed, the following R script logs in and returns data from the "jobs" endpoint. Please enter your correct username and password in the appropriate place.
 
 ```R
+##################################################
+# Run this test script with: Rscript getJobs.R 
+# This will output errors, comments and progress
+##################################################
+
 # Check for the availability of devtools. If not installed, do so
 if(!require("devtools")){
   # If devtools fails with zero exit status due to unable to install xml2 library, 
@@ -43,10 +48,11 @@ if(!require("devtools")){
 library("RCurl")
 library("jsonlite")
 library("httr")
+library("plyr")
 library("dplyr")
 
 # Load external file containing username, password and API endpoint data. 
-#File must be saved in active working directory. See parameters.R.dist for example format.
+# File must be saved in active working directory. See parameters.R.dist for example format
 source("parameters.R")
 
 # Login
@@ -64,7 +70,17 @@ users <- users()
 # Returns all assignment data associated with job_id 163
 assignments <- assignments(163)
 
+# Write a nice little csv to check output 
+write.csv(jobsOut$id, file = "jobsOut.csv")
+
+# Returns all data from members endpoint for project code "nyu_demo"
+members <- members(projectCode="nyu_demo")
+
+# Test Locations. This will return a lot of data! Check username and password in parameters.R
+locations <- locations(projectCode="truth_posse", memberId="5380", maxPerPage="100")
+
+# Also look for getJobs.Rout file if running from command line with R CMD BATCH. 
+# This will show result of running script and any errors.
+
 ```
-All the jobs data can now be accessed through the variable "jobsOut". Job ids are specifically found in jobsOut$id
-
-
+See also the [Survos recipe repository](https://github.com/survos/platform-recipes) for this example script and the parameters.R.dist example file.
