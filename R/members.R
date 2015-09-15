@@ -6,8 +6,6 @@ members <- function(projectCode, maxPerPage = "25", pii = "0"){
   
   # Define the API endpoint extension to match this function and any other endpoint params
   
-  dataReturn <- endPointParams(endPointExt="members?", endPointPages="&page=")
-  
-  dplyr::bind_rows(dataReturn[1:length(dataReturn)])
+  dataReturn <-  endPointParams(endPointExt="members?", endPointPages="&page=")
   
 }
