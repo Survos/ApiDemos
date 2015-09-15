@@ -15,7 +15,13 @@ endPointParams <- function(endPointExt, endPointPages){
   
   getData <- httr::GET(url=url, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   
+  if (httr::status_code(getData[[1]]) != "200") {
+    stop("Status Code: ", httr::status_code(getData[[1]]), " Something went wrong. Please check URL validity. ", url[1])
+  } else {
+    
   dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
+  
+  }
   
   # Everything below here deals with returning data across all pages. 
   
