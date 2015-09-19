@@ -59,7 +59,7 @@ endPointParams <- function(endPointExt, endPointPages){
     if (httr::status_code(pushData) != "200") {
       stop("Status Code: ", httr::status_code(pushData), " Something went wrong. Please check content validity. ", url)
         } else {
-          print("Action completed")
+          cat("Applicant action completed")
       }
   }
 }
