@@ -1,4 +1,4 @@
-applicants <- function(action, id, comment, message){
+applicantsAction <- function(action, id, comment, message){
   
   # Set function options
   funcOps <<- action
