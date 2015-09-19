@@ -50,7 +50,7 @@ endPointParams <- function(endPointExt, endPointPages){
   # If it is pushing data, do this....
   } else{
     
-    body_json <- jsonlite::toJSON(unbox(body), pretty = TRUE)
+    body_json <- jsonlite::toJSON(unbox(msgBody), pretty = TRUE)
     
     url <- paste(endPoint, endPointExt, funcOps, sep="")
     

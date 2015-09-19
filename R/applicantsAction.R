@@ -4,11 +4,11 @@ applicantsAction <- function(action, id, comment, message){
   funcOps <<- action
   
   # Set the body content
-  body <- NULL
-  body$id = id
-  body$comment = comment
-  body$message = message
-  body <<- as.data.frame(body)
+  msgBody <- NULL
+  msgBody$id = id
+  msgBody$comment = comment
+  msgBody$message = message
+  msgBody <<- as.data.frame(msgBody)
   
   # Define the API endpoint extension to match this function and any other endpoint params
   
