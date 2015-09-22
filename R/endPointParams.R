@@ -57,7 +57,7 @@ endPointParams <- function(endPointExt, endPointPages){
     pushData <- httr::PATCH(url=url, body = body_json, encode="json", add_headers('Content-Type' = 'application/json',
                                                                                              Authorization=paste("Bearer ", accessToken, sep="")))
     if (httr::status_code(pushData) != "200") {
-      stop("Status Code: ", httr::status_code(pushData), " Something went wrong. Please check content validity. ", url)
+      stop("Status Code: ", httr::status_code(pushData), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url)
         } else {
           cat("Applicant action completed\n")
       }
