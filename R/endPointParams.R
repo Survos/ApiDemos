@@ -14,35 +14,39 @@ endPointParams <- function(endPointExt, endPointPages){
   
   getData <- httr::GET(url=url, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   
-  dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
-  
-  if (dataReturn$code != "200") {
-    stop("Status Code: ", dataReturn$code, "\n Message: ", dataReturn$message, "\n Please check URL and function arguments for validity. ", url)
+  if (httr::status_code(getData) != "200") {
+    stop("Status Code: ", httr::status_code(getData), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url)
   } else {
     
-    # Everything below here deals with returning data across all pages. 
-    
-    for (i in 1:dataReturn$pages) { 
-      
-      url[i] <- as.list(paste(endPoint, endPointExt, funcOps, endPointPages, i,sep=""))
-      
-    }
-    numberPages <- length(url)
-    message(paste("Total Pages: ", numberPages, sep=""))
-    flush.console()
-    message("Data Retrieval Progress:")
-    flush.console()
-    
-    # Iterate through all URLs, error check for correct status code from API return and print a projess bar.
-    
-    getData <- llply(url, function(x) httr::GET(url=x, add_headers(Authorization=paste("Bearer ", accessToken, sep=""))) , .progress = "text" )
-    
-    dataReturn <- lapply(getData, function(x) jsonlite::fromJSON(content(x,type="text", flatten = TRUE)))
-    
-    lapply(dataReturn, '[[', 'items' )
+  dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
   
   }
- 
+  
+  # Everything below here deals with returning data across all pages. 
+  
+  for (i in 1:dataReturn$pages) { 
+    
+    url[i] <- as.list(paste(endPoint, endPointExt, funcOps, endPointPages, i,sep=""))
+
+  }
+      numberPages <- length(url)
+      message(paste("Total Pages: ", numberPages, sep=""))
+      flush.console()
+      message("Data Retrieval Progress:")
+      flush.console()
+      
+      # Iterate through all URLs, error check for correct status code from API return and print a projess bar.
+      
+     getData <- llply(url, function(x) httr::GET(url=x, add_headers(Authorization=paste("Bearer ", accessToken, sep=""))) , .progress = "text" )
+     
+     if (httr::status_code(getData[[1]]) != "200") {
+       stop("Status Code: ", httr::status_code(getData[[1]]), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url[1])
+     } else {
+    
+     dataReturn <- lapply(getData, function(x) jsonlite::fromJSON(content(x,type="text", flatten = TRUE)))
+      
+      lapply(dataReturn, '[[', 'items' )
+     } 
   # If it is pushing data, do this....
   } else{
     
@@ -52,8 +56,8 @@ endPointParams <- function(endPointExt, endPointPages){
     
     pushData <- httr::PATCH(url=url, body = body_json, encode="json", add_headers('Content-Type' = 'application/json',
                                                                                              Authorization=paste("Bearer ", accessToken, sep="")))
-    if (pushData$code != "200") {
-      stop("Status Code: ", pushData$code, "\n Message: ", pushData$message, "\n Please check URL and function arguments for validity. ", url)
+    if (httr::status_code(pushData) != "200") {
+      stop("Status Code: ", httr::status_code(pushData), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url)
         } else {
           cat("Applicant action completed\n")
       }
