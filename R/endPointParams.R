@@ -15,7 +15,8 @@ endPointParams <- function(endPointExt, endPointPages){
   getData <- httr::GET(url=url, add_headers(Authorization=paste("Bearer ", accessToken, sep="")))
   
   if (httr::status_code(getData) != "200") {
-    stop("Status Code: ", httr::status_code(getData), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url)
+    dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
+    stop("Status Code: ", dataReturn$code, "\n Message: ", dataReturn$message, "\nPlease check URL and function arguments validity. \n", url)
   } else {
     
   dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
@@ -40,8 +41,9 @@ endPointParams <- function(endPointExt, endPointPages){
      getData <- llply(url, function(x) httr::GET(url=x, add_headers(Authorization=paste("Bearer ", accessToken, sep=""))) , .progress = "text" )
      
      if (httr::status_code(getData[[1]]) != "200") {
-       stop("Status Code: ", httr::status_code(getData[[1]]), " Something went wrong. Please check URL validity. Possibly one of the argument values passed to the function is incorrect. ", url[1])
-     } else {
+       dataReturn <- jsonlite::fromJSON(content(getData,type="text"))
+       stop("Status Code: ", dataReturn$code, " Message: ", dataReturn$message, "\nPlease check URL and function arguments validity. \n", url[1]) 
+       } else {
     
      dataReturn <- lapply(getData, function(x) jsonlite::fromJSON(content(x,type="text", flatten = TRUE)))
       
